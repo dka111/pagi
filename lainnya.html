@@ -1,0 +1,181 @@
+<!doctype html>
+<html lang="id">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Selamat Ulang Tahun Idel - CatLovers 🎂🐾</title>
+  <style>
+    :root{
+      --bg1:#0f1724; --bg2:#071431; --card:#071833;
+      --accent:#ffd166; --accent2:#06d6a0; --pink:#ff6b9a;
+      --glass: rgba(255,255,255,0.04);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;font-family:Inter, system-ui, 'Segoe UI', Roboto, Arial;background:radial-gradient(circle at 10% 10%, #0b1220 0%, var(--bg1) 40%, var(--bg2) 100%);color:#f4f8fb}
+
+    .container{min-height:100vh;display:flex;align-items:center;justify-content:center;padding:28px}
+    .card{width:min(980px,96vw);border-radius:18px;padding:22px;display:grid;grid-template-columns:1fr 360px;gap:18px;background:linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));box-shadow:0 20px 60px rgba(2,6,23,0.7);position:relative;overflow:hidden}
+
+    /* Left content */
+    .left{padding:12px 8px;display:flex;flex-direction:column;gap:12px}
+    h1{margin:0;font-size:40px}
+    h1 .name{color:var(--accent);text-shadow:0 6px 24px rgba(255,209,102,0.06)}
+    p.lead{margin:0;color:rgba(255,255,255,0.9);font-size:16px}
+
+    .actions{display:flex;gap:10px;margin-top:8px}
+    button{padding:10px 14px;border-radius:12px;border:0;font-weight:700;cursor:pointer}
+    .btn-music{background:linear-gradient(90deg,var(--accent),#ff9a42);color:#081123}
+    .btn-cats{background:linear-gradient(90deg,#7ee8fa,#b490ca);color:#061022}
+    .btn-share{background:linear-gradient(90deg,#06d6a0,#06b6d4);color:#07202a}
+
+    /* Right visual area */
+    .right{position:relative;display:flex;align-items:center;justify-content:center}
+    .stage{width:320px;height:320px;border-radius:24px;background:linear-gradient(180deg,#071833, #0b2740);display:flex;align-items:center;justify-content:center;position:relative;box-shadow:inset 0 6px 30px rgba(0,0,0,0.35)}
+
+    /* cute cat illustration simple */
+    .cat{width:160px;height:160px;position:relative}
+    .ear{width:44px;height:44px;background:#fff;border-radius:50%;position:absolute;top:4px}
+    .ear.left{left:10px;transform:rotate(-18deg);background:linear-gradient(180deg,#fff,#ffdede)}
+    .ear.right{right:10px;transform:rotate(18deg);background:linear-gradient(180deg,#fff,#ffdede)}
+    .face{width:160px;height:140px;background:linear-gradient(180deg,#fff,#ffe9f0);border-radius:50% 50% 44% 44%;position:relative;top:12px;box-shadow:0 10px 30px rgba(1,5,10,0.45)}
+    .eye{width:18px;height:18px;background:#08212b;border-radius:50%;position:absolute;top:48px}
+    .eye.left{left:42px}
+    .eye.right{right:42px}
+    .nose{width:14px;height:10px;background:#ff6b9a;border-radius:10px;position:absolute;left:50%;transform:translateX(-50%);top:78px}
+    .whisker{position:absolute;height:2px;background:linear-gradient(90deg,#233, #0a2d34);width:60px;left:50%;top:88px}
+    .whisker.left{transform:translateX(-100%);left:36px}
+    .whisker.right{transform:translateX(0);left:90px}
+
+    /* paw */
+    .paw{position:absolute;bottom:8px;width:54px;height:54px;border-radius:50%;background:linear-gradient(180deg,#ffdede,#fff);box-shadow:0 6px 16px rgba(0,0,0,0.2)}
+    .paw.left{left:40px}
+    .paw.right{right:40px}
+
+    /* floating hearts */
+    .heart{position:absolute;width:18px;height:18px;background:#ff6b9a;transform:rotate(45deg);border-radius:4px;opacity:0.95}
+    .heart::before,.heart::after{content:'';position:absolute;width:18px;height:18px;background:#ff6b9a;border-radius:50%}
+    .heart::before{top:-9px;left:0}
+    .heart::after{left:9px;top:0}
+
+    /* small ornaments */
+    .banner{position:absolute;left:-40px;top:8px;padding:8px 18px;background:linear-gradient(90deg,#ffd166,#ff9a42);transform:rotate(-12deg);border-radius:8px;font-weight:700;color:#081123;box-shadow:0 10px 30px rgba(0,0,0,0.2)}
+
+    /* confetti canvas */
+    canvas.confetti{position:absolute;inset:0;pointer-events:none}
+
+    /* responsive */
+    @media (max-width:900px){.card{grid-template-columns:1fr;gap:12px}.right{order:-1;justify-content:center}}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card" id="card">
+      <div class="left">
+        <div class="banner">Untuk Idel - CatLovers</div>
+        <h1>Selamat Ulang Tahun, <span class="name">Idel</span>! 🐱🎂</h1>
+        <p class="lead">Semoga hari ulang tahunmu penuh dengan keceriaan, pelukan hangat dari kucing kesayangan, dan momen-momen manis. Semoga selalu sehat, bahagia, dan diberi keberuntungan besar.</p>
+
+        <div class="actions">
+          <button id="btnMusic" class="btn-music">Putar Lagu Ulang Tahun</button>
+          <button id="btnConfetti" class="btn-cats">Pecah Konfetti</button>
+          <button id="btnShare" class="btn-share">Salin Link / Bagikan</button>
+        </div>
+
+        <p style="margin-top:10px;color:rgba(255,255,255,0.7)">Kamu bisa menambahkan foto kucing Idel atau mengganti warna tema. Klik <strong>Salin Link</strong> untuk mengirim ke WhatsApp.</p>
+
+        <div style="margin-top:auto;font-size:13px;color:rgba(255,255,255,0.65)">Dibuat dengan ❤ untuk CatLovers</div>
+      </div>
+
+      <div class="right">
+        <div class="stage" id="stage">
+          <div class="cat" id="cat">
+            <div class="ear left"></div>
+            <div class="ear right"></div>
+            <div class="face">
+              <div class="eye left"></div>
+              <div class="eye right"></div>
+              <div class="nose"></div>
+              <div class="whisker left"></div>
+              <div class="whisker right"></div>
+              <div class="paw left"></div>
+              <div class="paw right"></div>
+            </div>
+          </div>
+          <div class="heart" style="left:18px;top:18px;animation:floatUp 4s ease-in-out infinite"></div>
+          <div class="heart" style="left:78px;top:6px;animation:floatUp 5s ease-in-out infinite .2s"></div>
+          <div class="heart" style="left:230px;top:32px;animation:floatUp 4.6s ease-in-out infinite .6s"></div>
+        </div>
+
+        <canvas id="confettiCanvas" class="confetti"></canvas>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // resize confetti canvas to card
+    const card = document.getElementById('card');
+    const canvas = document.getElementById('confettiCanvas');
+    const ctx = canvas.getContext('2d');
+    function resize(){
+      const r = card.getBoundingClientRect();
+      canvas.width = r.width; canvas.height = r.height;
+      canvas.style.left = r.left + 'px'; canvas.style.top = r.top + 'px';
+    }
+    window.addEventListener('resize', resize); resize();
+
+    // confetti simple
+    let confettis=[];
+    function rand(a,b){return Math.random()*(b-a)+a}
+    function spawn(n=100){
+      confettis = [];
+      const colors=['#ff6b9a','#ffd166','#06d6a0','#7ee8fa','#b490ca'];
+      for(let i=0;i<n;i++){
+        confettis.push({x:rand(0,canvas.width),y:rand(-canvas.height,0),r:rand(6,12),dx:rand(-2,2),dy:rand(2,6),ang:rand(0,Math.PI*2),da:rand(-0.15,0.15),color:colors[Math.floor(rand(0,colors.length))]});
+      }
+    }
+    function update(dt){
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for(const p of confettis){
+        p.x += p.dx * dt * 60/16; p.y += p.dy * dt * 60/16; p.ang += p.da;
+        ctx.save(); ctx.translate(p.x,p.y); ctx.rotate(p.ang); ctx.fillStyle=p.color; ctx.fillRect(-p.r/2,-p.r/2,p.r,p.r*0.6); ctx.restore();
+        if(p.y > canvas.height + 40) p.y = rand(-canvas.height, -10);
+      }
+    }
+    let last = performance.now(); function loop(now){const dt=Math.min((now-last)/1000,0.05); last=now; update(dt); requestAnimationFrame(loop);} requestAnimationFrame(loop);
+
+    document.getElementById('btnConfetti').addEventListener('click', ()=>{ spawn(180); });
+
+    // simple kitty bob animation
+    const cat = document.getElementById('cat');
+    let t=0; function bob(){ t += 0.02; cat.style.transform = `translateY(${Math.sin(t)*6}px) rotate(${Math.sin(t*0.6)*2}deg)`; requestAnimationFrame(bob);} bob();
+
+    // simple tune for happy birthday (web audio)
+    const notes=[392,392,440,392,523,494, 392,392,440,392,587,523];
+    const durs=[.35,.35,.7,.7,.7,.9, .35,.35,.7,.7,.7,.9];
+    let actx=null;
+    function playTune(){ if(!actx) actx=new (window.AudioContext||window.webkitAudioContext)(); let t=actx.currentTime+0.05; for(let i=0;i<notes.length;i++){ const o=actx.createOscillator(); const g=actx.createGain(); o.type='sine'; o.frequency.value=notes[i]; g.gain.value=0.12; o.connect(g); g.connect(actx.destination); o.start(t); o.stop(t+durs[i]); t+=durs[i]; }}
+    document.getElementById('btnMusic').addEventListener('click', ()=>{ try{ playTune(); }catch(e){console.warn(e);} });
+
+    // share: copy url to clipboard
+    document.getElementById('btnShare').addEventListener('click', async ()=>{
+      try{
+        await navigator.clipboard.writeText(location.href);
+        alert('Link halaman disalin! Sekarang tinggal paste di WhatsApp.');
+      }catch(e){ alert('Gagal menyalin. Kamu bisa salin url di address bar secara manual.'); }
+    });
+
+    // optional: allow replacing with personal cat image by dragging
+    const stage = document.getElementById('stage');
+    stage.addEventListener('dragover', (e)=>{ e.preventDefault(); stage.style.opacity=0.9; });
+    stage.addEventListener('dragleave', ()=>{ stage.style.opacity=1; });
+    stage.addEventListener('drop', (e)=>{
+      e.preventDefault(); stage.style.opacity=1; const f = e.dataTransfer.files[0]; if(!f) return; if(!f.type.startsWith('image/')) return alert('Harus file gambar.'); const img = URL.createObjectURL(f);
+      // create img overlay
+      const imgEl = document.createElement('img'); imgEl.src = img; imgEl.style.maxWidth='90%'; imgEl.style.maxHeight='90%'; imgEl.style.borderRadius='12px'; imgEl.style.boxShadow='0 12px 36px rgba(2,6,23,0.6)';
+      // remove existing overlay if any
+      const existing = stage.querySelector('.custom-img'); if(existing) existing.remove(); imgEl.className='custom-img'; stage.appendChild(imgEl);
+    });
+
+  </script>
+</body>
+</html>
